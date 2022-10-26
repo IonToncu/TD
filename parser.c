@@ -44,19 +44,59 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character){
         break;
     }
     case 6:{
-        if(current_character == 0x0A) state = 15;
+        if(current_character == 0x0D) state = 15;
         else if(current_character == '+') state = 3;
         else return STATE_MACHINE_READY_WITH_ERROR;
         break;
     }
     case 15:{
-        if(current_character == 0x0D) state = 16;
+        if(current_character == 0x0A) state = 16;
         else return STATE_MACHINE_READY_WITH_ERROR;
         break;
     }
     case 16:{
-        if(current_character == 0x0D) state = 16;
+        if(current_character == 'O') state = 12;
+        else if(current_character == 'E') state = 7;
         else return STATE_MACHINE_READY_WITH_ERROR;
+        break;
+    }
+    case 12:{
+        if(current_character == 'K') state = 11;
+        else return STATE_MACHINE_READY_WITH_ERROR;
+        break;
+    }
+    case 7:{
+        if(current_character == 'R') state = 8;
+        else return STATE_MACHINE_READY_WITH_ERROR;
+        break;
+    }
+    case 8:{
+        if(current_character == 'R') state = 9;
+        else return STATE_MACHINE_READY_WITH_ERROR;
+        break;
+    }
+    case 9:{
+        if(current_character == 'O') state = 10;
+        else return STATE_MACHINE_READY_WITH_ERROR;
+        break;
+    }
+    case 10:{
+        if(current_character == 'R') state = 11;
+        else return STATE_MACHINE_READY_WITH_ERROR;
+        break;
+    }
+    case 11:{
+        if(current_character ==  0x0D) state = 13;
+        else return STATE_MACHINE_READY_WITH_ERROR;
+        break;
+    }
+    case 13:{
+        if(current_character ==  0x0A) state = 14;
+        else return STATE_MACHINE_READY_WITH_ERROR;
+        break;
+    }
+    case 14:{
+        return STATE_MACHINE_READY_OK;
         break;
     }
  }
