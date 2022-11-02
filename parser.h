@@ -1,5 +1,8 @@
-#ifndef _PARSER_AT_
+#ifndef _PARSER_H
+#define _PARSER_H
+
 #include <stdint.h>
+#include <stdbool.h>
 
 #define AT_COMMAND_MAX_LINES 100
 #define AT_COMMAND_MAX_LINE_SIZE 128
@@ -12,6 +15,7 @@ typedef struct
     uint32_t line_count;
 } AT_COMMAND_DATA;
 
+extern AT_COMMAND_DATA data;
 
 typedef enum {
     STATE_MACHINE_NOT_READY,
@@ -19,6 +23,7 @@ typedef enum {
     STATE_MACHINE_READY_WITH_ERROR
 } STATE_MACHINE_RETURN_VALUE;
 
+const char* getStringFromStateMachine(STATE_MACHINE_RETURN_VALUE ret);
 
 STATE_MACHINE_RETURN_VALUE at_command_parser(uint8_t current_character);
 
