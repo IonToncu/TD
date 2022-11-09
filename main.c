@@ -30,11 +30,13 @@ int main(int argc, char* argv[]){
             }
             if(state != STATE_MACHINE_READY_OK)
                 ch = fgetc(ptr);
-            printf("%c", ch);
+            // printf("%c", ch);
         } while (state != STATE_MACHINE_READY_OK);
-        printf("\n%s\n",getStringFromStateMachine(state));
+
+        if(state != STATE_MACHINE_NOT_READY) printf("\n%s\n",getStringFromStateMachine(state));
     } while (ch != EOF);
 
+    if(state == STATE_MACHINE_NOT_READY) printf("\n%s :never get <CR> character\n",getStringFromStateMachine(state));
     fclose(ptr);
 
 }
