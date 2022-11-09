@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[]){
     FILE* ptr;
-    STATE_MACHINE_RETURN_VALUE state;
+    STATE_MACHINE_RETURN_VALUE state = STATE_MACHINE_NOT_READY;
     char ch;
 
 
@@ -18,10 +18,13 @@ int main(int argc, char* argv[]){
 
     ch = fgetc(ptr);
     do{
-        do {
+        if(ch != 0x0D) ch = fgetc(ptr);
+        else do {
             state = at_command_parser(ch);
             if(state == STATE_MACHINE_READY_WITH_ERROR){
-                printf("\n%s\n",getStringFromStateMachine(state));
+                printf("\033[0;31m");
+                printf("\nReturn with error");
+                printf("\033[0;0m");
                 fclose(ptr);
                 exit(1);
             }
@@ -30,7 +33,6 @@ int main(int argc, char* argv[]){
             printf("%c", ch);
         } while (state != STATE_MACHINE_READY_OK);
         printf("\n%s\n",getStringFromStateMachine(state));
-
     } while (ch != EOF);
 
     fclose(ptr);

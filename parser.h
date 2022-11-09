@@ -15,8 +15,6 @@ typedef struct
     uint32_t line_count;
 } AT_COMMAND_DATA;
 
-extern AT_COMMAND_DATA data;
-
 typedef enum {
     STATE_MACHINE_NOT_READY,
     STATE_MACHINE_READY_OK,
